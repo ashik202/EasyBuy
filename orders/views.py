@@ -89,7 +89,7 @@ def place_order(request, total=0, quntity=0):
             )
             print(total)
         else:
-            total = total + (cart_item.product.price * cart_item.quantity)
+            total = total + (cart_item.products.price * cart_item.quantity)
 
         quntity = quntity + cart_item.quantity
     tax = (18 * total) / 100
