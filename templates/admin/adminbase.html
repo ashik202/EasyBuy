@@ -1,0 +1,95 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Sidebar 02</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'admin/css/style.css'%}">
+</head>
+<body>
+
+<div class="wrapper d-flex align-items-stretch">
+    <nav id="sidebar">
+        <div class="custom-menu">
+            <button type="button" id="sidebarCollapse" class="btn btn-primary">
+                <i class="fa fa-bars"></i>
+                <span class="sr-only">Toggle Menu</span>
+            </button>
+        </div>
+        <div class="p-4 pt-5 text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                 class="bi bi-person-circle mb-4 " viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                <path fill-rule="evenodd"
+                      d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+            </svg>
+            <h6 class="mb-1">User Name:</h6>
+            <h6 class="mb-5">Email</h6>
+            <ul class="list-unstyled components mb-5">
+
+                <li>
+                    <a href="#">Home</a>
+                </li>
+
+                <li>
+                    <a href="{% url 'adminviewuser' %}">User Management</a>
+                </li>
+                <li>
+                    <a href="{% url 'adminviewproduct'%}">Product Management</a>
+                </li>
+                 <li>
+                    <a href="{% url 'view_admin_product_offer'%}">Product Offer</a>
+                </li>
+                <li>
+                    <a href="{% url 'adminviewcategory'%}">Category</a>
+                </li>
+                 <li>
+                    <a href="{% url 'view_admin_category_offer'%}">Category Offer</a>
+                </li>
+                 <li>
+                    <a href="{% url 'adminbrand'%}">Brand</a>
+                </li>
+                 <li>
+                    <a href="{% url 'view_admin_brand_offer'%}">Brand Offer</a>
+                </li>
+                <li>
+                    <a href="{% url 'OrderView'%}">Order Details</a>
+                </li>
+                <li>
+                    <a href="{% url 'Sales_Report'%}">Sales Report</a>
+                </li>
+                <li>
+                    <a href="{%url 'viewcoupon' %}">Coupon Management</a>
+                </li>
+                <li>
+                    <a href="#">Offer Management</a>
+                </li>
+                <li>
+                    <a href="{% url 'adminlogout'%}">logout</a>
+                </li>
+            </ul>
+
+
+    </nav>
+
+
+    <!-- Page Content  -->
+    <div id="content" class="p-4 p-md-5 pt-5">
+        {% block content %}
+        {% endblock %}
+
+
+    </div>
+</div>
+
+<script src="{%static 'admin/js/jquery.min.js'%}"></script>
+<script src="{%static 'admin/js/popper.js'%}"></script>
+<script src="{%static 'admin/js/bootstrap.min.js'%}"></script>
+<script src="{%static 'admin/js/main.js'%}"></script>
+</body>
+</html>

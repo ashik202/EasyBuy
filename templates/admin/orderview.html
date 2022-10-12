@@ -1,0 +1,104 @@
+{%extends "admin/adminbase.html" %}
+{% load static %}
+
+
+{%block content%}
+<!-- Content Header (Page header) -->
+<div class="content-header sty-one">
+    <h1 class="text-dark">View Orders</h1>
+
+
+</div>
+<br>
+<div class="pull-right search-box">
+    <form action="" method="get" class="search-form">
+        <div class="input-group">
+            <input class="form-control" placeholder="Search..." type="text" name="key">
+            <span class="input-group-btn">
+          <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i
+                  class="fa fa-search"></i> </button>
+          </span></div>
+    </form>
+    <!-- search form --> </div>
+
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Billing_Name</th>
+            <th scope="col">created_at</th>
+            <th scope="col">Amount</th>
+            <th scope="col">More Details</th>
+            <th scope="col">status</th>
+            <th scope="col">Update Stutas</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+        <tr>
+
+            <th scope="row">{{order.order_number}}</th>
+            <td>{{order.full_name}}</td>
+            <td>{{order.created_at}}</td>
+            <td>{{order.order_total}}</td>
+            <td>
+                <button><a href="{% url 'OrderDetailView' order.id %}"> View More</a></button>
+            </td>
+            <td>{{order.status}}</td>
+
+
+            <!-- <td><a href="delete/{{ x.id }}"><button type="submit" class="btn btn-danger" onclick="return confirmation()" >delete</button></a></td> -->
+            <form method="post" action="{% url 'Updateorderstatus' order.id %}">
+                {% csrf_token %}
+                <td>
+
+
+                    <select name="status">
+                        <option disabled>Select</option>
+                        <option value="Accepted">Accepted</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Cancelled">CancelledS</option>
+                    </select>
+
+                </td>
+                <td>
+                    <button type="submit">Submite</button>
+                </td>
+            </form>
+
+        </tr>
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% if productValues.has_previous %}
+
+            <li class="page-item"><a class="page-link"
+                                     href="?page={{ productValues.previous_page_number }}">Previous</a></li>
+
+            {% endif %}
+            <li class="page-item"><a class="page-link" href="#">Page {{productValues.number}} of
+                {{productValues.paginator.num_pages}}</a></li>
+
+            {% if productValues.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{productValues.next_page_number}}">Next</a></li>
+
+            {% endif %}
+
+
+        </ul>
+    </nav>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

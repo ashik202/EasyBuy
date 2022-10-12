@@ -1,0 +1,47 @@
+{%extends "base/basecode.html" %}
+{% load static %}
+
+
+{%block content%}
+
+
+<div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
+    <div class="card-body">
+        <div class="d-flex justify-content-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor"
+                 class="bi bi-person-circle  " viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" class="text-info"/>
+                <path fill-rule="evenodd"
+                      d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"
+                      class="text-info"/>
+            </svg>
+        </div>
+        <h3 class="card-title mb-4 text-center">SignIn</h3>
+        <form method="POST">
+            {% csrf_token %}
+            {% for message in messages %}
+            <h4 class="text-danger text-center">{{message}}</h4>
+            {% endfor %}
+            <div class="form-group">
+                <h6 class="card-title mb-4 text-center">Enter Email</h6>
+                <input type="email" class="form-control" placeholder="" name="email">
+            </div> <!-- form-group// -->
+            <div class="form-group">
+                <h6 class="card-title mb-4 text-center">Enter Password</h6>
+                <input type="password" class="form-control" placeholder="" name="password">
+            </div> <!-- form-group// -->
+            <a href="{%url 'forgotpassword' %}">Forgoat Password?</a>
+
+            <!-- form-group form-check .// -->
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block"> Login</button>
+            </div> <!-- form-group// -->
+            <div style="width:21rem;height:2.5px;background-color:red"></div>
+            <br>
+            <button class="btn btn-primary btn-block"><a href="{%url 'otplogins'%}"> Login with Mobile</a></button>
+            <p>New to this site ?<a href="{% url 'usersignup' %}">SignUp</a></p>
+        </form>
+    </div>
+</div>
+<br><br>
+{% endblock %}

@@ -1,0 +1,121 @@
+{%extends "base/basecode.html" %}
+{% load static %}
+
+
+{%block content%}
+<br>
+<br>
+<br>
+<section class="section-content padding-y bg">
+    <div class="container">
+
+        <!-- ============================ COMPONENT 1 ================================= -->
+        <div class="card">
+            <div class="row no-gutters">
+                <aside class="col-md-6">
+                    <article class="gallery-wrap">
+                        <div class="img-big-wrap text-center mainImage">
+                            <img src="{{data.image1.url}}" height="600" width="550">
+                        </div> <!-- img-big-wrap.// -->
+
+                    </article> <!-- gallery-wrap .end// -->
+                    <ul class="thum" style="list-style:none;">
+                        <li>
+                            <a href="{{data.image1.url}}" target="mainImage"><img src="{{data.image1.url}}"></a>
+                            {% for i in product_gallery %}
+                            <a href="{{i.image.url}}" target="mainImage"><img src="{{i.image.url}}"></a>
+                            {%endfor%}
+                        </li>
+
+                    </ul>
+                </aside>
+
+                <main class="col-md-6 border-left p-5">
+                    <form method="POST" action="{% url 'add_cart' data.id %}">
+                        {% csrf_token%}
+                        <article class="content-body">
+
+                            <h2 class="title">{{data.product_name}} {{data.product_model}}</h2>
+
+                          {% if data.new_price == 0 %}
+                                    <div class="price-wrap mt-2">
+                                        <span class="price"><h6>₹{{data.price}}</h6></span>
+                                    </div>
+
+                                    {% else %}
+                                    <div class="price-wrap mt-2">
+                                        <span class="price"><s><h6>₹{{data.price}}</h6></s></span>
+                                    </div>
+                                    <div class="price-wrap mt-2">
+                                        <span class="offer_price"><h6>₹{{data.new_price}} <span class="text-danger">({{data.discount}}%)</span></h6></span>
+
+                                    </div>
+
+                                    {% endif%}
+
+                            <p>{{data.description}}</p>
+
+
+                            <hr>
+                            <div class="row">
+                                <div class="item-option-select">
+                                    <p>Brand :{{data.brand}}</p>
+                                    <p>Model :{{data.product_model}}</p>
+                                    <p>Ram :{{data.ram}}</p>
+                                    <p>Processor :{{data.Screensize}}</p>
+                                    <p> Display :{{data.product_name}}</p>
+                                    <p>Storage :{{data.storage}}</p>
+                                    <p>prie:{{data.new_price}}</p>
+
+                                    <h6>Color</h6>
+                                    <select name="color" class="form-control">
+                                        <option value="" disabled selected>--select--</option>
+                                        {%for i in data.variation_set.Colors %}
+                                        <option value="{{i.variation_value | lower}}">{{i.variation_value}}</option>
+                                        {% endfor %}
+
+
+                                    </select>
+                                </div>
+                            </div> <!-- row.// -->
+                            <!-- row.// -->
+                            <hr>
+                            {% if data.stock <= 0 %}
+                            <button type="button" class="btn  btn-danger">
+                                <span class="text">Out of Stock</span>
+                            </button>
+
+                            {% else %}
+
+                            <button type="submit" class="btn  btn-primary">
+                                <span class="text">Add to cart</span>
+                            </button>
+
+
+                            {%endif%}
+
+                            <i class="fas fa-shopping-cart"></i> </a>
+                        </article>
+                    </form>    <!-- product-info-aside .// -->
+                </main> <!-- col.// -->
+            </div> <!-- row.// -->
+        </div> <!-- card.// -->
+        <!-- ============================ COMPONENT 1 END .// ================================= -->
+
+        <br>
+
+        <div class="row">
+            <div class="col-md-9">
+
+
+                <br>
+                <br>
+                <br>
+
+            </div> <!-- col.// -->
+        </div> <!-- row.// -->
+
+
+    </div> <!-- container .//  -->
+</section>
+{% endblock %}

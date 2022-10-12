@@ -1,0 +1,55 @@
+{%extends "base/basecode.html" %}
+{% load static %}
+
+
+{%block content%}
+<section class="section-conten padding-y bg my-5">
+
+    <div class="container">
+        <div class="row">
+            {%include 'base/dashbordsidebar.html'%}
+            <main class="col-md-9">
+                <article class="card">
+                    <header class="card-header">
+                        <strong class="d-inline-block mr-3">Welcome</strong>
+                        <span>{{user.username}}</span>
+                    </header>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <div class="card text-center">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Total Orders</h5>
+
+                                        <h4>
+                                            {{order_count}}
+                                        </h4>
+                                        <a href="">view</a>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+					<div class="card text-center">
+						<div class="card-body">
+							<img class="rounded-circle" src="" width="30rem" alt="UserProfile" class="avatar">
+							<p class="mb-0">{{ user.email}}</p>
+							<p>{{ user.phone_number}}</p>
+						</div>
+					</div>
+				</div>
+
+                        </div> <!-- row.// -->
+                    </div> <!-- card-body .// -->
+                    <div class="table-responsive">
+
+                    </div> <!-- table-responsive .end// -->
+                </article> <!-- order-group.// -->
+            </main>
+        </div> <!-- row.// -->
+    </div>
+
+
+</section>
+{%endblock%}

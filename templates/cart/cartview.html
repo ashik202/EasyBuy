@@ -1,0 +1,165 @@
+{%extends "base/basecode.html" %}
+{% load static %}
+
+
+{%block content%}
+
+<section class="section-content padding-y bg mt-5">
+    <div class="container">
+        {% if not cart_items %}
+        <h3>continue Shoping</h3>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        {% else %}
+        <h3>Cart</h3>
+        <!-- ============================ COMPONENT 1 ================================= -->
+
+
+        <div class="row">
+            <aside class="col-lg-9">
+
+                <div class="card">
+                    <table class="table table-borderless table-shopping-cart">
+                        <thead class="text-muted">
+
+                        <tr class="small text-uppercase">
+                            <th scope="col">Product</th>
+                            <th scope="col" width="120">Quantity</th>
+                            <th scope="col" width="120">Price</th>
+                            <th scope="col" class="text-right" width="200"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {%for x in cart_items %}
+                        <tr>
+                            <td>
+                                <figure class="itemside align-items-center">
+                                    <div class="aside"><img src="{{x.products.image1.url}}" height="45" width="30" class="img-sm"></div>
+                                    <figcaption class="info">
+                                        <a href="#" class="title text-dark">{{x.products.product_name}}</a>
+                                        <p class="text-muted small">{{x.products.category}} <br>
+                                            {{x.products.brand}}<br>
+                                            {% if x.variations.all %}
+                                            {% for d in x.variations.all %}
+                                            {{d.variation_category}} : {{d.variation_value}}
+                                            {% endfor %}
+                                            {% endif %}
+
+                                        </p>
+                                    </figcaption>
+                                </figure>
+                            </td>
+                            <td>
+                                <!-- col.// -->
+
+                                <div class="row">
+                                    <div class="input-group input-spinner">
+                                        <div class="input-group-prepend">
+                                            <a href="{% url 'remove_cart' x.products.id x.id %}" class="btn btn-light"
+                                               type="button">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                     fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+                                                    <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                                                </svg>
+
+                                            </a>
+                                        </div>
+                                        <input type="text" class="form-control" value="{{x.quantity}}">
+                                        <div class="input-group-prepend">
+                                            <form action="{% url 'add_cart' x.products.id%}" method="post">
+                                                {% csrf_token %}
+                                                    {% for item in x.variations.all %}
+                                                    <input type="hidden" name="{{ item.variation_category | lower }}"
+                                                           value="{{ item.variation_value | capfirst }}">
+                                                    {% endfor %}
+                                                    <button class="btn btn-light"
+                                                            type="submit">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                             fill="currentColor" class="bi bi-plus-lg"
+                                                             viewBox="0 0 16 16">
+                                                            <path fill-rule="evenodd"
+                                                                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                                                        </svg>
+
+                                                    </button>
+                                                </form>
+                                        </div>
+                                    </div> <!-- input-group.// -->
+                                </div>
+                                <!-- col.// -->
+                            </td>
+                            <td>
+                                <div class="price-wrap">
+                                    {%if x.products.new_price != 0 %}
+                                    <var class="price">{{x.products.new_price}}</var>
+                                    <small class="text-muted"> </small>
+                                    {%else%}
+                                    <var class="price">{{x.products.price}}</var>
+                                    <small class="text-muted"> </small>
+                                    {%endif%}
+                                </div> <!-- price-wrap .// -->
+                            </td>
+                            <td class="text-right">
+                                <a href=" {% url 'remove_cart_item' x.products.id x.id%}" class="btn btn-danger"> Remove</a>
+                            </td>
+                        </tr>
+                        {%endfor%}
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <!-- card.// -->
+
+            </aside> <!-- col.// -->
+            <aside class="col-lg-3">
+
+                <div class="card">
+                    <div class="card-body">
+                        <dl class="dlist-align">
+                            <dt>Total price:{{total}}</dt>
+                            <dd class="text-right"></dd>
+                        </dl>
+                        <dl class="dlist-align">
+                            <dt>Tax:{{tax}}</dt>
+                            <dd class="text-right"></dd>
+                        </dl>
+                        <dl class="dlist-align">
+                            <dt>Total:{{granttotal}}</dt>
+                            <dd class="text-right text-dark b"><strong></strong></dd>
+                        </dl>
+                        <hr>
+                        <p class="text-center mb-3">
+                            <img src="{% static 'home/payments.png'%}" height="26">
+                        </p>
+                        {%if user.is_authenticated %}
+                        <form method="post" action="{%url 'coupon' %}">
+                            {% csrf_token %}
+                        <input type="text" name="coupon" placeholder="Enter coupon Code" class="mb-2 form-control" >
+                        <button type="submit" class="btn btn-primary btn-block mb-2"> Applay Coupon </button>
+                        </form>
+                        {%endif%}
+                        <a href="{% url 'checkout'%}" class="btn btn-primary btn-block"> Checkout </a>
+                        <a href="{%url 'storepage'%}" class="btn btn-light btn-block">Continue Shopping</a>
+                    </div> <!-- card-body.// -->
+                </div> <!-- card.// -->
+
+            </aside> <!-- col.// -->
+
+
+        </div> <!-- row.// -->
+        {%endif%}
+
+        <!-- ============================ COMPONENT 1 END .// ================================= -->
+
+    </div> <!-- container .//  -->
+</section>
+{% endblock%}

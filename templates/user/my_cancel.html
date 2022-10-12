@@ -1,0 +1,73 @@
+{%extends "base/basecode.html" %}
+{% load static %}
+
+
+{%block content%}
+<section class="section-conten padding-y bg">
+
+    <div class="container">
+        <div class="row">
+            {%include 'base/dashbordsidebar.html'%}
+            <main class="col-md-9">
+                <article class="card">
+
+                    <header class="card-header">
+
+                        <strong class="d-inline-block mr-3">Your Order History</strong> <button>Orders</button>
+
+                    </header>
+                    {% if not orders %}
+                    <h3 class="text-center mt-5" style="color: #FF7F7F;"></h3>
+                    <h5 class="text-center" style="color: #313031;">It looks like you haven't made your order yet.</h5>
+                    <img src="{% static './images/empty order.jpg' %}" alt="" class="center" width="100%" height="300">
+                    <div class="text-center mb-4">
+                        <a href="{% url 'storepage' %}" class="btn btn-primary col-6">Shop Now</a>
+                    </div>
+                    {% else %}
+                    <div class="card-body  shadow p-3 mb-5 bg-white rounded">
+                        <div class="row ">
+                            <div class="col-md-12 ">
+                                <table class="table table-hover table-responsive">
+                                    <thead>
+                                    <tr>
+                                        <a>
+                                            <th scope="col">Order #</th>
+                                        </a>
+                                        <th scope="col">billing  Name</th>
+                                        <th scope="col">Amount Paid</th>
+                                        <th scope="col">Date</th>
+                                        <th scope="col">Status</th>
+
+
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for order in orders %}
+                                    <tr>
+                                        <th scope="row"><a href="{% url 'OrderDetails' order.order_number %}">{{order.order_number}}</a>
+                                        </th>
+                                        <td>{{order.full_name}}</td>
+
+                                        <td>Rs {{order.order_total}}</td>
+                                        <td>{{order.created_at}}</td>
+                                        <td>{{order.status}}</td>
+
+
+                                    </tr>
+                                    {% endfor %}
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div> <!-- row.// -->
+                    </div> <!-- card-body .// -->
+                    {% endif %}
+                </article> <!-- order-group.// -->
+            </main>
+        </div> <!-- row.// -->
+    </div>
+
+
+</section>
+{%endblock%}

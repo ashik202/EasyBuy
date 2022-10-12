@@ -1,0 +1,90 @@
+{%extends "admin/adminbase.html" %}
+{% load static %}
+
+{% load crispy_forms_tags %}
+{%block content%}
+<div class="content-header sty-one">
+    <h1 class="text-dark">Sales Report</h1>
+
+
+</div>
+<br>
+
+
+<div class="table-responsive">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Prodct Name</th>
+            <th scope="col">Brand</th>
+            <th scope="col">Category</th>
+            <th scope="col">Product_Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total_Sales</th>
+            <th scope="col">Total_Revenue</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for x in products %}
+        <tr>
+
+            <th scope="row">{{x.id}}</th>
+            <td>{{x.product_name}}</td>
+            <td>{{x.brand}}</td>
+            <td>{{x.category}}</td>
+            <td>{{x.price}}</td>
+            <td>{{x.stock}}</td>
+            <td>
+                {% if x.get_count %}
+                {{x.get_count.0.quantity}}
+
+                {% endif %}
+            </td>
+            <td>
+
+                {% if x.get_revenue %}
+                {{x.get_revenue.0.revenue}}
+
+                {% endif %}
+            </td>
+
+
+            <!-- <td><a href="delete/{{ x.id }}"><button type="submit" class="btn btn-danger" onclick="return confirmation()" >delete</button></a></td> -->
+
+
+        </tr>
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+    <div class="btn btn-dark mb-2 "> <a href="{% url 'Exel_convetion' %}" class="text-white">EXCEL</a></div>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            {% if productValues.has_previous %}
+
+            <li class="page-item"><a class="page-link"
+                                     href="?page={{ productValues.previous_page_number }}">Previous</a></li>
+
+            {% endif %}
+            <li class="page-item"><a class="page-link" href="#">Page {{productValues.number}} of
+                {{productValues.paginator.num_pages}}</a></li>
+
+            {% if productValues.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{productValues.next_page_number}}">Next</a></li>
+
+            {% endif %}
+
+
+        </ul>
+    </nav>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}
