@@ -111,10 +111,11 @@
                                     <div class="price-wrap">
                                         <var class="price">$ {{ x.sub_total }}</var>
                                         <br>
-                                        {% if x.product.new_price != 0 %}
-                                        <small class="text-muted"> $ {{ x.products.new_price }} each  </small>
+                                        {% if x.product.new_price == 0 %}
+                                        <small class="text-muted"> {{ x.products.price }} each  </small>
+
                                         {% else %}
-                                        <small class="text-muted"> $ {{ x.products.price }} each  </small>
+                                        <small class="text-muted">    </small>
                                         {% endif%}
 
                                     </div> <!-- price-wrap .// -->

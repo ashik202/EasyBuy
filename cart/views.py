@@ -241,6 +241,7 @@ def checkout(request, total=0, quntity=0, cart_items=None):
                 total = total + (cart_item.products.new_price * cart_item.quantity)
             else:
                 total = total + (cart_item.products.price * cart_item.quantity)
+            print("price null",cart_items.producs.price)
             quntity = quntity + cart_item.quantity
             tax = (18 * total) / 100
             granttotal = total + tax

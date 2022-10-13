@@ -82,7 +82,7 @@ def langingpage(request):
     return render(request, 'storetem/home.html', {'data': data})
 
 
-def usersignup(request):
+def user_signup(request):
     global phone_number
     if request.user.is_authenticated:
         return redirect('homepage')

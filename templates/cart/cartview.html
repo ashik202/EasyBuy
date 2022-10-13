@@ -66,13 +66,13 @@
                                             <a href="{% url 'remove_cart' x.products.id x.id %}" class="btn btn-light"
                                                type="button">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                     fill="currentColor" class="bi bi-dash" viewBox="0 0 16 16">
+                                                     fill="currentColor" class="bi bi-dash m" viewBox="0 0 16 16"   >
                                                     <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
                                                 </svg>
 
                                             </a>
                                         </div>
-                                        <input type="text" class="form-control" value="{{x.quantity}}">
+                                        <input type="text" class="form-control px-2" value="{{x.quantity}}" >
                                         <div class="input-group-prepend">
                                             <form action="{% url 'add_cart' x.products.id%}" method="post">
                                                 {% csrf_token %}
