@@ -163,8 +163,8 @@ def user_logout(request):
 def opt_login(request):
     if request.method == 'POST':
         phone = request.POST['number']
-        user = Account.objects.filter(phone_number=phone)
-        if user is not None:
+        if Account.objects.filter(phone_number=phone):
+
             request.session['numberlogin'] = phone
             sentOTP(phone)
             return redirect(confirm_otp_login)

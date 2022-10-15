@@ -43,7 +43,7 @@ def payments(request):
             price = offer_price["new_price"]
             orderproduct.product_price = price
         else:
-            orderproduct.product_price = item.product.price
+            orderproduct.product_price = item.products.price
         orderproduct.ordered = True
         orderproduct.save()
         cart_item = Cartitem.objects.get(id=item.id)
