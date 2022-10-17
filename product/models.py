@@ -17,7 +17,7 @@ class product(models.Model):
     product_name=models.CharField(max_length=200,default='')
     product_model=models.CharField(max_length=50,default='')
     slug=models.SlugField(max_length=500,unique=True,default=uuid.uuid1)
-    description=models.TextField(max_length=50)
+    description=models.TextField(max_length=100)
     ram=models.TextField(max_length=50)
     Screensize=models.TextField(max_length=200)
     processor=models.TextField(max_length=100)

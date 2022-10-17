@@ -68,7 +68,7 @@
                                 <figcaption class="info-wrap">
                                     <div class="fix-height text-center">
                                         <p class="title">{{x.product_name}}</p>
-                                        <p>{{x.product_model}}</p>
+
                                         <P>{{x.description}}</P>
                                         {% if x.new_price == 0 %}
                                         <div class="price-wrap mt-2">
@@ -88,7 +88,7 @@
                             </a><!-- price-wrap.// -->
                             </div>
 
-                    <a href="#" class="btn btn-block btn-success">Added to cart </a>
+                    <a href="{% url 'add_cart' x.id %}" class="btn btn-block btn-primary">Add to cart </a>
                     </figcaption>
                     </figure>
                 </div>

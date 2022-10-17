@@ -26,7 +26,7 @@ def storepage(request, category_slug=None):
                 products.new_price = 0
                 products.discount=0
                 products.save()
-        paginator = Paginator(data, 2)
+        paginator = Paginator(data, 6)
         page = request.GET.get('page')
         paged_product = paginator.get_page(page)
         datacound = data.count()
@@ -48,7 +48,7 @@ def storepage(request, category_slug=None):
                 products.discount = 0
 
                 products.save()
-        paginator = Paginator(data, 2)
+        paginator = Paginator(data, 6)
         page = request.GET.get('page')
         paged_product = paginator.get_page(page)
         datacound = data.count()
@@ -73,15 +73,23 @@ def singleproductpagr(request, category_slug, product_slug):
 
 
 def search(request):
-    if 'key' in request.GET:
-        keys = request.GET['key']
-        if keys:
-            data = product.objects.filter(
-                Q(product_name__icontains=keys) or Q(description__icontains=keys) or Q(brand__icontains=keys))
-            datacound = data.count()
+    if "key" in request.GET:
+        keyword = request.GET["key"]
+        if keyword:
+            products = product.objects.order_by("id").filter(
+                Q(description__icontains=keyword)
+                | Q(product_name__icontains=keyword)
+            )
+
+            # q means query set
+
+        paginator = Paginator(products, 6)
+        page = request.GET.get('page')
+        paged_product = paginator.get_page(page)
+        datacound = products.count()
 
         context = {
-            'data': data,
+            'data': paged_product,
             'datacound': datacound,
         }
         return render(request, 'storetem/store.html', context)
